@@ -4,13 +4,14 @@ module.exports = {
 
     var singleURLString = '';
     var lastLine = '';
-    for (var i = 0; i < strArr; i++) {
+    for (var i = 0; i < strArr.length; i++) {
       if (decodeURIComponent(strArr[i]).length < 15) {
         lastLine = strArr[i];
         strArr.splice(i, 1);
       }
     }
-    for (var j = 0; j < strArr.length; i++) {
+
+    for (i = 0; i < strArr.length; i++) {
       var remainingStrArrs = strArr.filter(function(value) {
         return value != strArr[i];
       });
@@ -20,12 +21,12 @@ module.exports = {
       }
     }
     if (singleURLString == '') {
-      return lastLine;
+      return lastLine.replace(/\+/g, ' ');
     }
     if (lastLine != '') {
       var resultArr = getCommonCount(singleURLString, lastLine);
       if (resultArr[0]) {
-        return concatStrs(singleURLString, lastLine, resultArr[1]).replace(/\+/g, ' ');
+        return decodeURIComponent(concatStrs(singleURLString, lastLine, resultArr[1]).replace(/\+/g, ' '));
       } else {
         return '';
       }
@@ -101,6 +102,31 @@ function concatStrs(str1, str2, commonCount) {
   return str1 + str2.substring(commonCount);
 }
 
+var hello_world_java_unshuffled = ["%2F%2F+Sample+progr",
+  "program%0Apublic+",
+  "ublic+class+Hel",
+  "lass+HelloWorld",
+  "elloWorld+%7B%0A+++",
+  "d+%7B%0A++++public+",
+  "public+static+v",
+  "c+static+void+m",
+  "id+main%28String%5B",
+  "%28String%5B%5D+args%29",
+  "args%29+%7B%0A+++++++",
+  "++++++%2F%2F+Prints",
+  "%2F%2F+Prints+%22Hell",
+  "ts+%22Hello%2C+Worl",
+  "%2C+World%22+to+the",
+  "%22+to+the+termin",
+  "rminal+window.%0A",
+  "ow.%0A++++++++Sys",
+  "+++++++System.o",
+  "stem.out.printl",
+  "intln%28%22Hello%2C+W",
+  "o%2C+World%22%29%3B%0A+++",
+  "rld%22%29%3B%0A++++%7D%0A%7D%0A",
+  "%3B%0A++++%7D%0A%7D%0A"];
+
 var input1 = [
   "%2F%2FSample+progra",
   "e+program%0Apubli",
@@ -172,4 +198,6 @@ var testInput = [
   'ass+HelloWorld+',
 ];
 
+
+console.log(module.exports.decode(hello_world_java_unshuffled));
 console.log(module.exports.decode(input1));
