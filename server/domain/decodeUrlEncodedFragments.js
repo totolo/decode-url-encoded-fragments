@@ -21,7 +21,7 @@ module.exports = {
       }
     }
     if (singleURLString == '') {
-      return lastLine.replace(/\+/g, ' ');
+      return decodeURIComponent(lastLine.replace(/\+/g, ' '));
     }
     if (lastLine != '') {
       var resultArr = getCommonCount(singleURLString, lastLine);
@@ -200,4 +200,4 @@ var testInput = [
 
 
 console.log(module.exports.decode(hello_world_java_unshuffled));
-console.log(module.exports.decode(input1));
+console.log(module.exports.decode(input2));
