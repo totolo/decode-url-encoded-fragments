@@ -6,11 +6,14 @@ var http = require('http');
 
 router.post('/', function(req, res, next) {
 
+  console.log("QQQQ", req.body.fragments);
   // by contract, incoming data with key "fragments"
-  var input = JSON.parse(req.body.fragments);
+  var input = req.body.fragments;
 
   // connect encoded input into result string
   var encodedOutput = decoder.decode(input);
+
+  // var encodedOutput = '%2F%2FSample+program%0Apublic+class+HelloWorld+%7B%0A++++public+static+void+main%28String%5B%5D+args%29+%7B%0A++++++++%2F%2F+Prints+%22Hello%2C+World%22+to+the+terminal+window.%0A++++++++++System.out.println%28%22Hello%2C+World%22%29%3B%0A++++%7D%0A%7D%0A';
 
   // url decode result string
   var output = decodeURIComponent(encodedOutput.replace(/\+/g, ' '));
@@ -25,28 +28,32 @@ module.exports = router;
 // Testing
 setTimeout(function() {
 
-  var post_data = JSON.stringify({fragments :
-      ['l+window.%0A+++++',
-    'gs%29+%7B%0A++++++++%2F',
-    '%3B%0A++++%7D%0A%7D%0A',
-    'ublic+static+vo',
-    '++++++++System.',
-    'd%22+to+the+termi',
-    's+%22Hello%2C+World',
-    '++%2F%2F+Prints+%22He',
-    'Prints+%22Hello%2C+',
-    'e+terminal+wind',
-    'rld+%7B%0A++++publi',
-    'm%0Apublic+class+',
-    '+void+main%28Stri',
-    'String%5B%5D+args%29+',
-    'println%28%22Hello%2C',
-    'e+program%0Apubli',
-    '++System.out.pr',
-    'o%2C+World%22%29%3B%0A+++',
-    'o%2C+World%22+to+th',
-    'ass+HelloWorld+',
-    '%2F%2FSample+progra']});
+  var post_data = JSON.stringify(
+      {fragments: ['%2F%2F+Sample+progr',
+        'program%0Apublic+',
+        'ublic+class+Hel',
+        'lass+HelloWorld',
+        'elloWorld+%7B%0A+++',
+        'd+%7B%0A++++public+',
+        'public+static+v',
+        'c+static+void+m',
+        'id+main%28String%5B',
+        '%28String%5B%5D+args%29',
+        'args%29+%7B%0A+++++++',
+        '++++++%2F%2F+Prints',
+        '%2F%2F+Prints+%22Hell',
+        'ts+%22Hello%2C+Worl',
+        '%2C+World%22+to+the',
+        '%22+to+the+termin',
+        'rminal+window.%0A',
+        'ow.%0A++++++++Sys',
+        '+++++++System.o',
+        'stem.out.printl',
+        'intln%28%22Hello%2C+W',
+        'o%2C+World%22%29%3B%0A+++',
+        'rld%22%29%3B%0A++++%7D%0A%7D%0A',
+        '%3B%0A++++%7D%0A%7D%0A']}
+    );
 
 // An object of options to indicate where to post to
   var post_options = {
