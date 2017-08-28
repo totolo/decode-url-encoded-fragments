@@ -199,5 +199,5 @@ var testInput = [
 ];
 
 
-console.log(module.exports.decode(hello_world_java_unshuffled));
-console.log(module.exports.decode(input2));
+//console.log(module.exports.decode(hello_world_java_unshuffled));
+console.log(module.exports.decode(input1));
